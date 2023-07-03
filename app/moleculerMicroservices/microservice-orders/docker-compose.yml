@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  microservice-orders:
+    build:
+      context: .
+    image: microservice-orders
+    env_file: docker-compose.env
+    environment:
+      SERVICES: order
+
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    name: microservice-api_internal
+    external: true
+
+volumes:
+  data:

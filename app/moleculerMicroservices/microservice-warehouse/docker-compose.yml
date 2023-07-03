@@ -1,0 +1,20 @@
+version: "3.3"
+
+services:
+  microservice-warehouse:
+    build:
+      context: .
+    image: microservice-warehouse
+    env_file: docker-compose.env
+    environment:
+      SERVICES: warehouse
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    name: microservice-api_internal
+    external: true
+
+volumes:
+  data:
