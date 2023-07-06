@@ -1,6 +1,7 @@
 const _ = require("lodash");
-
 const { tracing, node, resources, api } = require("@opentelemetry/sdk-node");
+const { registerInstrumentations } = require("@opentelemetry/instrumentation");
+const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
 const {
 	B3Propagator,
 	B3InjectEncoding,
@@ -34,6 +35,12 @@ provider.register({
 	propagator: new B3Propagator({
 		injectEncoding: B3InjectEncoding.MULTI_HEADER,
 	}),
+});
+
+registerInstrumentations({
+	instrumentations: [new HttpInstrumentation()],
+	//tracerProvider: tracerProvider, // optional, only if global TracerProvider shouldn't be used
+	//meterProvider: meterProvider, // optional, only if global MeterProvider shouldn't be used
 });
 
 const tracer = api.trace.getTracer("warehouse");
