@@ -1,5 +1,7 @@
 "use strict";
 
+const opentelemetryMiddleware = require("./middlewares/opentelemetry.middleware");
+
 /**
  * Moleculer ServiceBroker configuration file
  *
@@ -193,7 +195,7 @@ module.exports = {
 	},
 
 	// Register custom middlewares
-	middlewares: [],
+	middlewares: [opentelemetryMiddleware],
 
 	// Register custom REPL commands.
 	replCommands: null,

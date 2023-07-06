@@ -25,6 +25,14 @@
     "moleculer-repl": "^0.7.3"
   },
   "dependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.37.1",
+    "@opentelemetry/node": "^0.24.0",
+    "@opentelemetry/propagator-b3": "^1.14.0",
+    "@opentelemetry/sdk-metrics": "^1.14.0",
+    "@opentelemetry/sdk-node": "^0.40.0",
+    "@opentelemetry/sdk-trace-node": "^1.14.0",
+    "@opentelemetry/semantic-conventions": "^1.14.0",
+    "@opentelemetry/tracing": "^0.24.0",
     "moleculer": "^0.14.26",
     "moleculer-prometheus": "^0.2.5",
     "moleculer-web": "^0.10.4",

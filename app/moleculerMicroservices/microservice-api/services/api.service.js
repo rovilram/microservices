@@ -12,9 +12,6 @@ const IO = require("socket.io");
  * @typedef {import('moleculer-web').ApiSettingsSchema} ApiSettingsSchema API Setting Schema
  */
 
-console.log(
-	"skdf poskdf posdk fposdk fposkd fopksd fpoksd pfoksd pofks dpofks podfk spodkf psodkf posdk fposdk fposdkf posdkf posdkf spodkf spodkf spodkf spodkf spodkf spodkf spodkf spodkf spodkf spodfk spdofk spdofk PERO QUE COÑO ESTÁ PASANDO!!!!!!"
-);
 module.exports = {
 	name: "api",
 	mixins: [ApiGateway],

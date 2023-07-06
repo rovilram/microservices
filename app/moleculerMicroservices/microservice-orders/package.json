@@ -25,6 +25,9 @@
     "moleculer-repl": "^0.7.3"
   },
   "dependencies": {
+    "@opentelemetry/propagator-b3": "^1.14.0",
+    "@opentelemetry/sdk-node": "^0.40.0",
+    "@opentelemetry/semantic-conventions": "^1.14.0",
     "moleculer": "^0.14.26",
     "nats": "^2.7.1",
     "uuid": "^9.0.0"

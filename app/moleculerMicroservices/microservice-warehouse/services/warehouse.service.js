@@ -1,5 +1,6 @@
 "use strict";
 const warehouseHelper = require("../helpers/warehouse");
+const OpenTelemetry = require("../mixins/opentelemetry");
 
 /**
  * @typedef {import('moleculer').ServiceSchema} ServiceSchema Moleculer's Service Schema
@@ -9,7 +10,7 @@ const warehouseHelper = require("../helpers/warehouse");
 /** @type {ServiceSchema} */
 module.exports = {
 	name: "warehouse",
-
+	mixins: [OpenTelemetry],
 	/**
 	 * Settings
 	 */
@@ -23,7 +24,14 @@ module.exports = {
 	/**
 	 * Actions
 	 */
-	actions: {},
+	actions: {
+		add: {
+			async handler(ctx) {
+				this.updateStock(ctx);
+				return { ok: 1, order: ctx.params.order };
+			},
+		},
+	},
 
 	/**
 	 * Events
@@ -34,7 +42,7 @@ module.exports = {
 				const resp = await warehouseHelper.updateStock(
 					ctx.params.order
 				);
-				this.broker.emit("stock.updated", { ...resp });
+				ctx.emit("stock.updated", { ...resp });
 			},
 		},
 	},
@@ -42,7 +50,12 @@ module.exports = {
 	/**
 	 * Methods
 	 */
-	methods: {},
+	methods: {
+		async updateStock(ctx) {
+			const resp = await warehouseHelper.updateStock(ctx.params.order);
+			ctx.trace.emit("stock.updated", { ...resp });
+		},
+	},
 
 	/**
 	 * Service created lifecycle event handler
