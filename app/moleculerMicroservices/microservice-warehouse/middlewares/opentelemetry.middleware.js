@@ -11,15 +11,16 @@ const {
 
 const { isFunction, isPlainObject, safetyObject } = require("moleculer").Utils;
 
-const { JaegerExporter } = require("@opentelemetry/exporter-jaeger");
-const exporter = new JaegerExporter({
-	tags: [], // optional
-	endpoint: "http://jaeger:14268/api/traces",
+const {
+	OTLPTraceExporter,
+} = require("@opentelemetry/exporter-trace-otlp-http");
+const exporter = new OTLPTraceExporter({
+	url: "http://jaeger:4318/v1/traces",
 });
 
 const provider = new node.NodeTracerProvider({
 	resource: new resources.Resource({
-		[SemanticResourceAttributes.SERVICE_NAME]: "moleculer",
+		[SemanticResourceAttributes.SERVICE_NAME]: "warehouse",
 		[SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: "dev",
 	}),
 });
@@ -35,7 +36,7 @@ provider.register({
 	}),
 });
 
-const tracer = api.trace.getTracer("moleculer");
+const tracer = api.trace.getTracer("warehouse");
 
 module.exports = {
 	name: "OpenTelemetryMiddleware",

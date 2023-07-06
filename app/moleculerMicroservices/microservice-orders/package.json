@@ -25,6 +25,7 @@
     "moleculer-repl": "^0.7.3"
   },
   "dependencies": {
+    "@opentelemetry/exporter-trace-otlp-http": "^0.41.0",
     "@opentelemetry/propagator-b3": "^1.14.0",
     "@opentelemetry/sdk-node": "^0.40.0",
     "@opentelemetry/semantic-conventions": "^1.14.0",
