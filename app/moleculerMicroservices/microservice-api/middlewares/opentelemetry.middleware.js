@@ -13,23 +13,24 @@ const {
 	SemanticResourceAttributes,
 } = require("@opentelemetry/semantic-conventions");
 const { isFunction, isPlainObject, safetyObject } = require("moleculer").Utils;
-const { PrometheusExporter } = require("@opentelemetry/exporter-prometheus");
-const { MeterProvider } = require("@opentelemetry/sdk-metrics");
-const { HostMetrics } = require("@opentelemetry/host-metrics");
+
+// const { PrometheusExporter } = require("@opentelemetry/exporter-prometheus");
+// const { MeterProvider } = require("@opentelemetry/sdk-metrics");
+// const { HostMetrics } = require("@opentelemetry/host-metrics");
 //metrics
-const metricsExporter = new PrometheusExporter({
-	port: 3030,
-	prefix: "apigateway",
-});
-const meterProvider = new MeterProvider({});
-meterProvider.addMetricReader(metricsExporter);
-const meter = meterProvider.getMeter("example-prometheus");
+// const metricsExporter = new PrometheusExporter({
+// 	port: 3030,
+// 	prefix: "apigateway",
+// });
+// const meterProvider = new MeterProvider({});
+// meterProvider.addMetricReader(metricsExporter);
+// const meter = meterProvider.getMeter("example-prometheus");
 
-const hostMetrics = new HostMetrics({
-	meterProvider,
-});
+// const hostMetrics = new HostMetrics({
+// 	meterProvider,
+// });
 
-hostMetrics.start();
+// hostMetrics.start();
 
 //tracing
 const traceExporter = new OTLPTraceExporter({
