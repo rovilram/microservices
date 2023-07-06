@@ -37,7 +37,7 @@ services:
       - 6832:6832/udp
       - 5778:5778/tcp
     command:
-      - "--log-level=debug"
+      - "--log-level=info"
   api:
     build:
       context: app/moleculerMicroservices/microservice-api/
