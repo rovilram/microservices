@@ -11,6 +11,13 @@ scrape_configs:
         labels:
           env: local
           region: us-east-1
+  - job_name: 'jaeger'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['jaeger:14269']
+        labels:
+          env: local
+          region: us-east-1
   - job_name: 'api'
     scrape_interval: 5s
     static_configs:

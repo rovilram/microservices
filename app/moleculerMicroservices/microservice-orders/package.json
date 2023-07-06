@@ -25,10 +25,13 @@
     "moleculer-repl": "^0.7.3"
   },
   "dependencies": {
+    "@opentelemetry/exporter-prometheus": "^0.41.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.41.0",
+    "@opentelemetry/host-metrics": "^0.32.2",
     "@opentelemetry/instrumentation": "^0.41.0",
     "@opentelemetry/instrumentation-http": "^0.41.0",
     "@opentelemetry/propagator-b3": "^1.14.0",
+    "@opentelemetry/sdk-metrics": "^1.15.0",
     "@opentelemetry/sdk-node": "^0.40.0",
     "@opentelemetry/semantic-conventions": "^1.14.0",
     "moleculer": "^0.14.26",

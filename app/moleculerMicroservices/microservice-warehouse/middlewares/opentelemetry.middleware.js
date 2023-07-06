@@ -9,16 +9,33 @@ const {
 const {
 	SemanticResourceAttributes,
 } = require("@opentelemetry/semantic-conventions");
-
 const { isFunction, isPlainObject, safetyObject } = require("moleculer").Utils;
-
 const {
 	OTLPTraceExporter,
 } = require("@opentelemetry/exporter-trace-otlp-http");
-const exporter = new OTLPTraceExporter({
-	url: "http://jaeger:4318/v1/traces",
+const { PrometheusExporter } = require("@opentelemetry/exporter-prometheus");
+const { MeterProvider } = require("@opentelemetry/sdk-metrics");
+const { HostMetrics } = require("@opentelemetry/host-metrics");
+
+//metrics
+const metricsExporter = new PrometheusExporter({
+	port: 3030,
+	prefix: "warehouse",
+});
+const meterProvider = new MeterProvider({});
+meterProvider.addMetricReader(metricsExporter);
+const meter = meterProvider.getMeter("example-prometheus");
+
+const hostMetrics = new HostMetrics({
+	meterProvider,
 });
 
+hostMetrics.start();
+
+//tracing
+const traceExporter = new OTLPTraceExporter({
+	url: "http://jaeger:4318/v1/traces",
+});
 const provider = new node.NodeTracerProvider({
 	resource: new resources.Resource({
 		[SemanticResourceAttributes.SERVICE_NAME]: "warehouse",
@@ -30,7 +47,7 @@ const provider = new node.NodeTracerProvider({
 provider.addSpanProcessor(
 	new tracing.SimpleSpanProcessor(new tracing.ConsoleSpanExporter())
 );
-provider.addSpanProcessor(new tracing.BatchSpanProcessor(exporter));
+provider.addSpanProcessor(new tracing.BatchSpanProcessor(traceExporter));
 provider.register({
 	propagator: new B3Propagator({
 		injectEncoding: B3InjectEncoding.MULTI_HEADER,
