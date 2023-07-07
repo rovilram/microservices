@@ -135,7 +135,6 @@ module.exports = {
 					this.broker.metrics.set("product.stock.total", stock, {
 						product: productName,
 					});
-					span.end();
 				} else {
 					this.setOrderStatus(orderId, "rejected", sid);
 					this.broker.metrics.increment(
@@ -144,8 +143,8 @@ module.exports = {
 							product: productName,
 						}
 					);
-					span.end();
 				}
+				span.end();
 			},
 		},
 	},
